@@ -23,7 +23,7 @@ A bridge can be technically correct and still be operationally opaque. Users and
 ## System shape
 
 ```mermaid
-flowchart LR
+flowchart TD
     n0["Source network"]
     n1["Bridge contracts"]
     n2["Relayer"]
