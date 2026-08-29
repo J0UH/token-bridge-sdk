@@ -1,50 +1,58 @@
+[← All systems](https://github.com/J0UH) · [Stablecoin and programmable asset infrastructure](https://github.com/J0UH/stablecoin-infrastructure)
+
 <p align="center">
-  <img src="assets/hero.png" alt="Token bridge and SDK system illustration" width="100%" />
+  <img src="assets/hero.webp" alt="A carrier advances across four staged confirmation gates between separated platforms" width="100%" />
 </p>
 
-# Token bridge and SDK
+# Always-on blockchain settlement
 
-Moving value between networks forces several systems to agree: contracts, relayers, confirmations, product state, and the application that has to explain progress to a user. This work focused on making those boundaries explicit.
-
-[Discuss a similar system](mailto:ju@jomena.group?subject=Discuss%20Token%20bridge%20and%20SDK) | [Book a technical call](mailto:ju@jomena.group?subject=Book%20a%20technical%20call%20about%20Token%20bridge%20and%20SDK)
+Digital value can move and settle around the clock, even when the banking world on either side still follows cut-offs, account structures, and regional operating hours. The work connects those worlds through same-chain settlement, cross-chain routes, atomic exchange, and clear reconciliation back to fiat accounts.
 
 ## The engineering problem
 
-A bridge can be technically correct and still be operationally opaque. Users and operators need to know which step is pending, what is final, and how to recover when one side completes before the other.
+A settlement route can be technically correct and still be operationally opaque. Users and operators need to know which leg is pending, what is final, how the digital and fiat records relate, and how to recover when one side completes before the other.
+
+## How it works
+
+A signed settlement instruction defines the assets, route, fees, authority, and expected outcome. The same control spine can support a same-chain transfer, atomic exchange, cross-chain movement, issuance, or a fiat on-ramp, while each leg keeps its own evidence and finality.
+
 
 ## What the system covers
 
-- Cross-network transfer workflows
-- Contract and relayer integration
-- SDK surfaces for product teams
-- Deployment and verification tooling
-- Status, retry, and reconciliation paths
+- Same-chain and cross-chain settlement
+- Atomic asset and foreign-exchange flows
+- Twenty-four-seven digital value movement
+- Product integration surfaces
+- Fiat-account and on-chain reconciliation
+- Status, finality, and safe recovery paths
 
 ## System shape
 
 ```mermaid
 flowchart TD
-    n0["Source network"]
-    n1["Bridge contracts"]
-    n2["Relayer"]
-    n3["Destination network"]
-    n4["SDK"]
-    n5["Product status"]
-    n0 --> n1
-    n1 --> n2
-    n2 --> n3
-    n3 --> n4
-    n4 --> n5
+accTitle: Always-on blockchain settlement
+accDescr: A settlement instruction can use a same-chain atomic path or separate cross-chain finality. Digital settlement is reconciled with fiat account movements, and disagreements return for review and recovery.
+    intent["Settlement instruction"] --> route{"Same chain?"}
+    route -->|Yes| atomic["Atomic exchange"]
+    route -->|No| source["Source finality"]
+    source --> destination["Destination finality"]
+    atomic --> record["Digital settlement"]
+    destination --> record
+    fiat["Fiat account movements"] --> reconcile{"Records agree?"}
+    record --> reconcile
+    reconcile -->|No| operator["Review and recovery"]
+    reconcile -->|Yes| complete["Settled state"]
+    operator --> intent
 ```
 
 ## Build notes
 
-- Model finality as a sequence, not a boolean.
-- Give every transfer a traceable identity across systems.
-- Make retry behaviour safe before adding convenience abstractions.
+- Give every settlement a traceable identity across digital and fiat systems.
+- Model finality separately for every leg.
+- Make recovery safe before making the route feel instant.
 
-<sub>Built under the Aryze umbrella. The underlying source and company IP remain private and owned by Aryze. Delivery involved people across engineering, product, operations, compliance, and design. Open-source foundations retain their original attribution and licences.</sub>
+<sub>Public overview only. Source code, customer data, credentials, and private operating details are not included.</sub>
 
 ## Talk through a similar problem
 
-If you are trying to build, untangle, or ship a system in this area, [send me a note](mailto:ju@jomena.group?subject=I%20need%20help%20with%20Token%20bridge%20and%20SDK). If the problem needs a deeper technical conversation, [book a call by email](mailto:ju@jomena.group?subject=Book%20a%20technical%20call%20about%20Token%20bridge%20and%20SDK).
+Working on something similar? [Tell me about it](mailto:ju@jomena.group?subject=Always-on%20blockchain%20settlement).
